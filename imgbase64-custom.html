@@ -1,0 +1,30 @@
+{#
+This template encodes images into base64 and includes them in the
+output. Optionally uses the Python Imaging Library to resize images.
+To download the imaging library, see
+https://developers.google.com/appengine/docs/python/images/installingPIL
+#}
+
+<!DOCTYPE html>
+<html> <head> <meta charset="UTF-8" /><style> 
+body { width: 35em; font-family: Avenir, Helvetica, sans-serif; }
+img.entry-photo {auto; margin-left: auto; display: block; }
+.entry-title {  font-size: 3em; text-align: center; }
+</style></head><body>{% for entry in journal %}<article> <p class="location time">
+        
+        
+        
+        
+        {{ entry['Date']|format('%Y-%m-%d %H:%M') }}{% if entry.place() %}, {{ entry.place() }} {% endif %}             </p>
+        {{ entry['Text'] | markdown }}
+        
+        {% if 'Photo' in entry %}
+        
+        
+        
+        
+        
+        
+        <img class="entry-photo" src="{{ entry['Photo'] | imgbase64(600) }}"/>
+        {% endif %}
+</article>{% endfor %}</body></html>
